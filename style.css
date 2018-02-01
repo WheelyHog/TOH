@@ -1,0 +1,132 @@
+body {
+	max-width: 900px;
+}
+
+.container {
+	margin: 30px;
+	font-family: Arial;
+}
+
+.container h2 {
+	color: gray;
+}
+
+.container button {
+	padding: 10px;
+	margin-right: 10px;
+	border: 1px solid buttonface;
+	border-radius:  3px;
+	color: #607D8B;
+	font-size: 16px;
+}
+
+.container button:hover {
+	background: #cfd8dc;
+	color: #039be5;
+}
+
+.top-heroes {
+	text-align: center;
+}
+
+.top-heroes h3 {
+	text-align: center;
+	color: rgb(68, 68, 68);
+	font-weight: normal;
+}
+
+.hero-bar {
+	display: inline-block;
+	width: 10%;
+	background: #607D8B;
+	margin-right: 20px;
+	text-align: center;
+	padding: 30px;
+	border-radius: 5px;
+
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.hero-bar a {
+	text-decoration: none;
+	color: #eee;
+}
+
+.hero-bar:hover a,
+.hero-bar:hover {
+	background: #eee;
+	color: #607D8B;
+}
+
+.hero-search h3 {
+	color: gray;
+}
+
+.dashboard-hidden {
+	display: none;
+}
+
+.heroes-list h2 {
+	display: block;
+	font-weight: normal;
+	color: rgb(68, 68, 68);
+}
+
+.heroes-list p,
+.heroes-list input,
+.heroes-list add {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.heroes-list button {
+	padding: 3px;
+}
+
+.heroes-list li {
+	list-style: none;
+	margin-bottom: -15px;
+}
+
+.heroes-list a {
+	list-style: none;
+	text-decoration: none;
+	background: buttonface;
+	padding: 10px 10px 10px 0;
+	border-radius: 5px;
+	}
+
+.heroes-list span {
+	background: #607D8B;
+	padding: 10px;
+	color: white;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.heroes-list p {
+	padding: 5px;
+	color: #888;
+	margin-left: 10px;
+	}
+
+.heroes-list p:hover {
+	color: #607D8B;
+}
+
+.heroes-list li p {
+	width: 200px;
+}
+
+.heroes-list .delete {
+	padding: 5px 10px;
+	background: gray;
+	color: white;
+}
+
+.heroes-list .delete:hover {
+	background: gray;
+	color: white;
+	cursor: pointer;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TOH</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h2>Tour of Heroes</h2>
+		<button id="dashboard">Dashboard</button>
+		<button id="tablelist">Heroes</button>
+		<div id ="dash" class="dashboard-hidden">
+			<div class="top-heroes">
+				<h3>Top Heroes</h3>
+				<div id="hero-dashboard">
+				<!--<div class="hero-bar">Narco</div>
+				<div class="hero-bar">Bombasto</div>
+				<div class="hero-bar">Celeritas</div>
+				<div class="hero-bar">Magneta</div>-->
+				</div>
+			</div>
+			<div class="hero-search">
+				<h3>Hero Search</h3>
+                <input id ="herosearch" type="text"><span id="result"></span>
+			</div>
+		</div>
+		<div id="hero-details" class="dashboard-hidden">
+		<h2>Hero Details</h2>
+		<p>ID: </p>
+		<p>name: </p>
+		<input type="text">
+		</div>
+		<div id="table" class="dashboard-visible">
+			<div class="heroes-list">
+				<h2>My Heroes</h2>
+				<p>Hero name: </p><input id="heroname" type="text"> <button id="addhero" class = "add" onclick="addHero()">Add</button>
+				<div id="heroes-ul">
+			
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="script.js"></script>	
+</body>
+</html>
