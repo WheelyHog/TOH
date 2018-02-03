@@ -98,23 +98,39 @@ function hideDash() {
     dashId.className = 'dashboard-hidden';
     detailId.className = 'dashboard-visible ';
 }
-
 // поиск элементов в массиве хероев ---------------------
 
 var searchinput = document.getElementById('herosearch');
 searchinput.oninput = function() {
-    document.getElementById('result').innerHTML = searchinput.value;
+    //document.getElementById('result').innerHTML = searchinput.value;
 
-    var findHeroName = function(arr, needName){
+    var numberFoundHeroes = 0;
+        for (var i=0; i < heroes.length; i++) {
+        var heroIndex = heroes[i].name.indexOf(searchinput.value, 0);
+        if (heroIndex !==-1 && searchinput.value !==''){
+
+            numberFoundHeroes++;
+            console.log('index of hero: ' + i);
+            NewLi = document.createElement('li');
+            NewLi.innerHTML = '<a href="#">' + heroes[i].name + '</a>';
+
+            searchresult.appendChild(NewLi);
+        }
+    }
+    console.log('number of heroes: ' + numberFoundHeroes);
+};
+
+/*
+ var findHeroName = function(arr, needName){
         return arr.findIndex(function(element){return element.name ===needName});
     }
     console.log(findHeroName(heroes, searchinput.value));
-};
 
-var needle = 'Ma';
+var needle = /Ma/i;
 
 var findHeroByname = function(arr, needle){
     return arr.findIndex(function(element){return element.name.includes(needle)});
 }
 
-console.log(findHeroByname(heroes, 'Ma'));
+console.log(findHeroByname(heroes, 'Ma'/i));
+*/
