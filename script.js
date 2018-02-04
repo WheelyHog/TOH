@@ -103,6 +103,13 @@ function hideDash() {
 var searchinput = document.getElementById('herosearch');
 searchinput.oninput = function() {
     //document.getElementById('result').innerHTML = searchinput.value;
+    //searchresult.remove('li');
+    var element = document.getElementById('searchresult');
+        element.remove();
+
+    var newUl = document.createElement('ul');
+    newUl.id = "searchresult";
+    newId.appendChild(newUl);
 
     var numberFoundHeroes = 0;
         for (var i=0; i < heroes.length; i++) {
@@ -110,14 +117,14 @@ searchinput.oninput = function() {
         if (heroIndex !==-1 && searchinput.value !==''){
 
             numberFoundHeroes++;
-            console.log('index of hero: ' + i);
+            //console.log('index of hero: ' + i);
             NewLi = document.createElement('li');
             NewLi.innerHTML = '<a href="#">' + heroes[i].name + '</a>';
 
             searchresult.appendChild(NewLi);
         }
     }
-    console.log('number of heroes: ' + numberFoundHeroes);
+    //console.log('number of heroes: ' + numberFoundHeroes);
 };
 
 /*
