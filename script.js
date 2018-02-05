@@ -13,7 +13,6 @@ var heroes = [
     {id: 20, name: "Tornado"}
 ];
 
-//console.log( heroes[3].id );
 
 // создание списка и заполнение элементами списка ----------------------
 var div = document.getElementById('heroes-ul');
@@ -25,11 +24,13 @@ for (var i = 0; i < heroes.length; i++) {
     newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[i].id + '</span><p>'+ heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
     newUl.appendChild(newLi);
 }
-
 div.appendChild(newUl);
+
+
 // переключение между доской и таблицей -------------------------
 var buttons = document.querySelectorAll('button');
 buttons.forEach (function(elem) {
+
     elem.addEventListener('click', changeState, true)
 });
 
@@ -39,17 +40,38 @@ var detailId = document.getElementById('hero-details');
 
 function changeState () {
     if (this.id == 'dashboard') {
+
+
+
         tabId.className = 'dashboard-hidden';
         dashId.className = 'dashboard-visible';
         detailId.className = 'dashboard-hidden ';
-    }
+     }
     else {
+        // вывод элементов в dashboard ---------------------------------------
+        var element = document.getElementById('hero-dashboard');
+        element.remove();
+
+        var newheroDiv = document.createElement('div');
+        newheroDiv.id = "hero-dashboard";
+        topheroes.appendChild(newheroDiv);
+
+
+        var heroDiv = newheroDiv;//document.getElementById('hero-dashboard');
+
+        for (var i = 0; i < heroes.length; i++) {
+            var newDiv = document.createElement('div');
+            newDiv.className = "hero-bar";
+            newDiv.innerHTML = '<a href="#" onclick="hideDash()">'+ heroes[i].name +'</a>';
+            heroDiv.appendChild(newDiv);
+        }
+
         tabId.className = 'dashboard-visible';
         dashId.className = 'dashboard-hidden';
         detailId.className = 'dashboard-hidden ';
     };
-
 }
+
 
 // добавление хероев в список и вывод в таблицу ------------------------
 function addHero () {
@@ -62,11 +84,10 @@ function addHero () {
     newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[heroes.length-1].id + '</span><p>'+ heroes[heroes.length-1].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
     newUl.appendChild(newLi);
     document.getElementById('heroname').value = "";
-
 }
 
-// удаление хероев из списка и массива ----------------------------------------
 
+// удаление хероев из списка и массива ----------------------------------------
 function removeHero () {
     //console.log(this.event.target.parentNode.parentNode);
     var remHero = this.event.target.parentNode.parentNode;
@@ -74,32 +95,25 @@ function removeHero () {
     var heroNumber = remHero.getElementsByClassName("badge")[0].textContent;
     //console.log("heroNumber=" + heroNumber);
 
-    // --нахождение индекса удаляемого элемента --
+
+// --нахождение индекса удаляемого элемента --
     var findHeroIndex = function(arr, needId){
         return arr.findIndex(function(element){return element.id ===needId});
     }
     //console.log(findHeroIndex(heroes, +heroNumber));
-    //--------------------------------------------
-
+//--------------------------------------------
     heroes.splice(findHeroIndex(heroes, +heroNumber), 1);
-
 }
-// вывод элементов в dashboard ---------------------------------------
-var heroDiv = document.getElementById('hero-dashboard');
 
-for (var i = 0; i < heroes.length; i++) {
-    var newDiv = document.createElement('div');
-    newDiv.className = "hero-bar";
-    newDiv.innerHTML = '<a href="#" onclick="hideDash()">'+ heroes[i].name +'</a>';
-    heroDiv.appendChild(newDiv);
-}
+
 // вывод детальной информации о хероях ----------------
 function hideDash() {
     dashId.className = 'dashboard-hidden';
     detailId.className = 'dashboard-visible ';
 }
-// поиск элементов в массиве хероев ---------------------
 
+
+// поиск элементов в массиве хероев ---------------------
 var searchinput = document.getElementById('herosearch');
 searchinput.oninput = function() {
     //document.getElementById('result').innerHTML = searchinput.value;
