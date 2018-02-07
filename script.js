@@ -24,8 +24,70 @@ for (var i = 0; i < heroes.length; i++) {
     var newLi = document.createElement('li');
     newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[i].id + '</span><p>'+ heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
     newUl.appendChild(newLi);
+    newLi.addEventListener("click", hideTab, true);
+
 }
 div.appendChild(newUl);
+
+function hideTab() {
+    console.log(this.children[0].children[1].innerHTML);
+
+
+
+        var chosenHero = this.children[0].children[1].innerHTML;
+        var chosenHeroId = 0;
+        // ---------вычисление ID хероя -----------
+        for (var i = 0; i < heroes.length; i++) {
+            if (heroes[i].name == chosenHero) {
+                chosenHeroId = heroes[i].id;
+            }
+        }
+        //console.log(chosenHeroId);
+        var saveBtn = document.getElementById('save-btn');
+        saveBtn.onclick = function () {
+            for (var i = 0; i < heroes.length; i++) {
+                if (heroes[i].id == chosenHeroId) {
+                    heroes[i].name = inputHeroName.value;
+                }
+            }
+
+            var element = document.getElementById('heroes_id_ul');
+            element.remove();
+
+            var heroes_ul = document.getElementById('heroes-ul');
+
+            var newUl = document.createElement('ul');
+            newUl.id = "heroes_id_ul";
+            heroes_ul.appendChild(newUl);
+
+
+            var div = document.getElementById('heroes_id_ul');
+
+            //var newUl = document.createElement('ul');
+
+            for (var i = 0; i < heroes.length; i++) {
+                var newLi = document.createElement('li');
+                newLi.innerHTML = '<a href="#"><span class = "badge">' + heroes[i].id + '</span><p>' + heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
+                newUl.appendChild(newLi);
+                newLi.addEventListener("click", hideTab, true);
+            }
+            heroes_ul.appendChild(newUl);
+
+        }
+
+
+        var heroDetailName = document.getElementById('p_name');
+        var heroDetailId = document.getElementById('p_id');
+        var inputHeroName = document.getElementById('input_name');
+        heroDetailName.innerHTML = 'Name: ' + chosenHero;
+        heroDetailId.innerHTML = 'ID: ' + chosenHeroId;
+        inputHeroName.value = chosenHero;
+    tabId.className = 'dashboard-hidden';
+    dashId.className = 'dashboard-hidden';
+    detailId.className = 'dashboard-visible';
+
+    }
+
 
 
 // переключение между доской и таблицей -------------------------
@@ -86,6 +148,7 @@ function addHero () {
     var newLi = document.createElement('li');
     newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[heroes.length-1].id + '</span><p>'+ heroes[heroes.length-1].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
     newUl.appendChild(newLi);
+    newLi.addEventListener("click", hideTab, true);
     document.getElementById('heroname').value = "";
 }
 
@@ -121,7 +184,7 @@ function hideDash() {
             chosenHeroId = heroes[i].id;
         }
     }
-    console.log(chosenHeroId);
+    //console.log(chosenHeroId);
     var saveBtn = document.getElementById('save-btn');
     saveBtn.onclick = function () {
         for (var i = 0; i < heroes.length; i++) {
@@ -148,6 +211,7 @@ function hideDash() {
             var newLi = document.createElement('li');
             newLi.innerHTML = '<a href="#"><span class = "badge">' + heroes[i].id + '</span><p>' + heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
             newUl.appendChild(newLi);
+            newLi.addEventListener("click", hideTab, true);
         }
         heroes_ul.appendChild(newUl);
 
