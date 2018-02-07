@@ -18,6 +18,7 @@ var heroes = [
 var div = document.getElementById('heroes-ul');
 
 var newUl = document.createElement('ul');
+newUl.id = 'heroes_id_ul';
 
 for (var i = 0; i < heroes.length; i++) {
     var newLi = document.createElement('li');
@@ -41,13 +42,6 @@ var detailId = document.getElementById('hero-details');
 function changeState () {
     if (this.id == 'dashboard') {
 
-
-
-        tabId.className = 'dashboard-hidden';
-        dashId.className = 'dashboard-visible';
-        detailId.className = 'dashboard-hidden ';
-     }
-    else {
         // вывод элементов в dashboard ---------------------------------------
         var element = document.getElementById('hero-dashboard');
         element.remove();
@@ -62,9 +56,18 @@ function changeState () {
         for (var i = 0; i < heroes.length; i++) {
             var newDiv = document.createElement('div');
             newDiv.className = "hero-bar";
-            newDiv.innerHTML = '<a href="#" onclick="hideDash()">'+ heroes[i].name +'</a>';
+            newDiv.innerHTML = '<a href="#" class="heroname">'+ heroes[i].name +'</a>';
             heroDiv.appendChild(newDiv);
+            newDiv.addEventListener("click", hideDash, true);
         }
+
+
+        tabId.className = 'dashboard-hidden';
+        dashId.className = 'dashboard-visible';
+        detailId.className = 'dashboard-hidden ';
+     }
+    else {
+
 
         tabId.className = 'dashboard-visible';
         dashId.className = 'dashboard-hidden';
@@ -107,9 +110,59 @@ function removeHero () {
 
 
 // вывод детальной информации о хероях ----------------
+
 function hideDash() {
+
+    var chosenHero = this.innerText;
+    var chosenHeroId = 0;
+    // ---------вычисление ID хероя -----------
+    for (var i = 0; i < heroes.length; i++) {
+        if (heroes[i].name == chosenHero) {
+            chosenHeroId = heroes[i].id;
+        }
+    }
+    console.log(chosenHeroId);
+    var saveBtn = document.getElementById('save-btn');
+    saveBtn.onclick = function () {
+        for (var i = 0; i < heroes.length; i++) {
+            if (heroes[i].id == chosenHeroId) {
+                heroes[i].name = inputHeroName.value;
+            }
+        }
+
+        var element = document.getElementById('heroes_id_ul');
+        element.remove();
+
+        var heroes_ul = document.getElementById('heroes-ul');
+
+        var newUl = document.createElement('ul');
+        newUl.id = "heroes_id_ul";
+        heroes_ul.appendChild(newUl);
+
+
+        var div = document.getElementById('heroes_id_ul');
+
+        //var newUl = document.createElement('ul');
+
+        for (var i = 0; i < heroes.length; i++) {
+            var newLi = document.createElement('li');
+            newLi.innerHTML = '<a href="#"><span class = "badge">' + heroes[i].id + '</span><p>' + heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
+            newUl.appendChild(newLi);
+        }
+        heroes_ul.appendChild(newUl);
+
+    }
+
+
+    var heroDetailName = document.getElementById('p_name');
+    var heroDetailId = document.getElementById('p_id');
+    var inputHeroName = document.getElementById('input_name');
+    heroDetailName.innerHTML = 'Name: ' + chosenHero;
+    heroDetailId.innerHTML = 'ID: ' + chosenHeroId;
+    inputHeroName.value = chosenHero;
     dashId.className = 'dashboard-hidden';
-    detailId.className = 'dashboard-visible ';
+   detailId.className = 'dashboard-visible';
+
 }
 
 
@@ -138,20 +191,6 @@ searchinput.oninput = function() {
             searchresult.appendChild(NewLi);
         }
     }
-    //console.log('number of heroes: ' + numberFoundHeroes);
+   
 };
 
-/*
- var findHeroName = function(arr, needName){
-        return arr.findIndex(function(element){return element.name ===needName});
-    }
-    console.log(findHeroName(heroes, searchinput.value));
-
-var needle = /Ma/i;
-
-var findHeroByname = function(arr, needle){
-    return arr.findIndex(function(element){return element.name.includes(needle)});
-}
-
-console.log(findHeroByname(heroes, 'Ma'/i));
-*/
