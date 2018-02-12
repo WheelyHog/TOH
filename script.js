@@ -1,5 +1,4 @@
 // имеется массив хероев -----------------
-
 var heroes = [
     {id: 11, name: "Mr. Nice"},
     {id: 12, name: "Narco"},
@@ -22,27 +21,30 @@ newUl.id = 'heroes_id_ul';
 
 for (var i = 0; i < heroes.length; i++) {
     var newLi = document.createElement('li');
-    newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[i].id + '</span><p>'+ heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
+    newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[i].id + '</span><p class = "hero-name">'+ heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
     newUl.appendChild(newLi);
-    newLi.addEventListener("click", hideTab, true);
-
+    //newLi.addEventListener("click", hideTab, true);
+    //console.log(newLi.childNodes[0].firstChild.innerHTML);
+    newLi.childNodes[0].firstChild.addEventListener("click", hideTab, true);
+   // console.log(newLi.childNodes[0].firstChild.nextSibling.innerHTML);
+    newLi.childNodes[0].firstChild.nextSibling.addEventListener("click", hideTab, true);
 }
 div.appendChild(newUl);
 
 function hideTab() {
-    console.log(this.children[0].children[1].innerHTML);
+    var chosenHero = '';
+    var chosenHeroId = '';
 
-
-
-        var chosenHero = this.children[0].children[1].innerHTML;
-        var chosenHeroId = 0;
-        // ---------вычисление ID хероя -----------
-        for (var i = 0; i < heroes.length; i++) {
-            if (heroes[i].name == chosenHero) {
-                chosenHeroId = heroes[i].id;
-            }
+        if (this.className == 'badge') {
+            chosenHero = this.nextSibling.innerHTML;
+            chosenHeroId = this.innerHTML;
         }
-        //console.log(chosenHeroId);
+        else if (this.className == 'hero-name') {
+                  console.log(this.innerHTML);
+                  chosenHero = this.innerHTML;
+                  chosenHeroId = this.previousSibling.innerHTML;
+        }
+
         var saveBtn = document.getElementById('save-btn');
         saveBtn.onclick = function () {
             for (var i = 0; i < heroes.length; i++) {
@@ -55,26 +57,22 @@ function hideTab() {
             element.remove();
 
             var heroes_ul = document.getElementById('heroes-ul');
-
             var newUl = document.createElement('ul');
             newUl.id = "heroes_id_ul";
             heroes_ul.appendChild(newUl);
 
-
             var div = document.getElementById('heroes_id_ul');
-
-            //var newUl = document.createElement('ul');
 
             for (var i = 0; i < heroes.length; i++) {
                 var newLi = document.createElement('li');
-                newLi.innerHTML = '<a href="#"><span class = "badge">' + heroes[i].id + '</span><p>' + heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
+                newLi.innerHTML = '<a href="#"><span class = "badge">' + heroes[i].id + '</span><p class = "hero-name">' + heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
                 newUl.appendChild(newLi);
-                newLi.addEventListener("click", hideTab, true);
+                //console.log(newLi.childNodes[0].firstChild);
+                //newLi.childNodes[0].firstChild.addEventListener("click", hideTab, true);
+               // newLi.addEventListener("click", hideTab, true);
             }
             heroes_ul.appendChild(newUl);
-
         }
-
 
         var heroDetailName = document.getElementById('p_name');
         var heroDetailId = document.getElementById('p_id');
@@ -85,15 +83,12 @@ function hideTab() {
     tabId.className = 'dashboard-hidden';
     dashId.className = 'dashboard-hidden';
     detailId.className = 'dashboard-visible';
-
     }
-
 
 
 // переключение между доской и таблицей -------------------------
 var buttons = document.querySelectorAll('button');
 buttons.forEach (function(elem) {
-
     elem.addEventListener('click', changeState, true)
 });
 
@@ -123,14 +118,11 @@ function changeState () {
             newDiv.addEventListener("click", hideDash, true);
         }
 
-
         tabId.className = 'dashboard-hidden';
         dashId.className = 'dashboard-visible';
         detailId.className = 'dashboard-hidden ';
      }
     else {
-
-
         tabId.className = 'dashboard-visible';
         dashId.className = 'dashboard-hidden';
         detailId.className = 'dashboard-hidden ';
@@ -146,9 +138,11 @@ function addHero () {
     }
     else return;
     var newLi = document.createElement('li');
-    newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[heroes.length-1].id + '</span><p>'+ heroes[heroes.length-1].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
+    newLi.innerHTML = '<a href="#"><span class = "badge">'+ heroes[heroes.length-1].id + '</span><p class = "hero-name">'+ heroes[heroes.length-1].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
     newUl.appendChild(newLi);
-    newLi.addEventListener("click", hideTab, true);
+    newLi.childNodes[0].firstChild.addEventListener("click", hideTab, true);
+    newLi.childNodes[0].firstChild.nextSibling.addEventListener("click", hideTab, true);
+    //newLi.addEventListener("click", hideTab, true);
     document.getElementById('heroname').value = "";
 }
 
@@ -161,7 +155,6 @@ function removeHero () {
     var heroNumber = remHero.getElementsByClassName("badge")[0].textContent;
     //console.log("heroNumber=" + heroNumber);
 
-
 // --нахождение индекса удаляемого элемента --
     var findHeroIndex = function(arr, needId){
         return arr.findIndex(function(element){return element.id ===needId});
@@ -173,7 +166,6 @@ function removeHero () {
 
 
 // вывод детальной информации о хероях ----------------
-
 function hideDash() {
 
     var chosenHero = this.innerText;
@@ -211,7 +203,7 @@ function hideDash() {
             var newLi = document.createElement('li');
             newLi.innerHTML = '<a href="#"><span class = "badge">' + heroes[i].id + '</span><p>' + heroes[i].name + '</p><button class = "delete" onclick="removeHero()">x</button></a>';
             newUl.appendChild(newLi);
-            newLi.addEventListener("click", hideTab, true);
+            //newLi.addEventListener("click", hideTab, true);
         }
         heroes_ul.appendChild(newUl);
 
